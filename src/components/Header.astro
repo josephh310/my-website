@@ -144,17 +144,22 @@ import HeaderLink from './HeaderLink.astro';
 		}
 	}
 
-	// Position immediately on first load (no animation)
+	function attachToggle() {
+		document.querySelector('.theme-toggle')?.addEventListener('click', () => {
+			const current = document.documentElement.getAttribute('data-theme');
+			const next = current === 'dark' ? 'light' : 'dark';
+			document.documentElement.setAttribute('data-theme', next);
+			localStorage.setItem('theme', next);
+		});
+	}
+
+	// Initial setup
 	positionIndicator(false);
+	attachToggle();
 
-	// Animate on client-side navigation
-	document.addEventListener('astro:after-swap', () => positionIndicator(true));
-
-	// Theme toggle
-	document.querySelector('.theme-toggle')?.addEventListener('click', () => {
-		const current = document.documentElement.getAttribute('data-theme');
-		const next = current === 'dark' ? 'light' : 'dark';
-		document.documentElement.setAttribute('data-theme', next);
-		localStorage.setItem('theme', next);
+	// Re-attach after client-side navigation
+	document.addEventListener('astro:after-swap', () => {
+		positionIndicator(true);
+		attachToggle();
 	});
 </script>

@@ -62,8 +62,14 @@ const { title, description, image = FallbackImage } = Astro.props;
 
 <script is:inline>
 	(function() {
-		const theme = localStorage.getItem('theme') ||
-			(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-		document.documentElement.setAttribute('data-theme', theme);
+		function getTheme() {
+			return localStorage.getItem('theme') ||
+				(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+		}
+		document.documentElement.setAttribute('data-theme', getTheme());
+
+		document.addEventListener('astro:before-swap', function(e) {
+			e.newDocument.documentElement.setAttribute('data-theme', getTheme());
+		});
 	})();
 </script>
