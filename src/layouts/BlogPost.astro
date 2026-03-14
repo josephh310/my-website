@@ -22,11 +22,13 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 			.hero-image {
 				width: 100%;
+				max-width: 960px;
+				margin: 2em auto 0;
 			}
 			.hero-image img {
 				display: block;
 				margin: 0 auto;
-				border-radius: 12px;
+				border-radius: var(--radius);
 				box-shadow: var(--box-shadow);
 			}
 			.prose {
@@ -38,19 +40,29 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 			.title {
 				margin-bottom: 1em;
-				padding: 1em 0;
+				padding: 2em 0 1em;
 				text-align: center;
 				line-height: 1;
 			}
 			.title h1 {
 				margin: 0 0 0.5em 0;
+				letter-spacing: -0.03em;
 			}
 			.date {
 				margin-bottom: 0.5em;
 				color: rgb(var(--gray));
+				font-size: 0.9em;
 			}
 			.last-updated-on {
 				font-style: italic;
+			}
+			hr {
+				border: none;
+				height: 3px;
+				width: 48px;
+				background: var(--accent);
+				border-radius: 2px;
+				margin: 1.5em auto;
 			}
 		</style>
 	</head>
