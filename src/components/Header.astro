@@ -10,6 +10,7 @@ import HeaderLink from './HeaderLink.astro';
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
+			<span class="tab-indicator" aria-hidden="true"></span>
 		</div>
 		<div class="social-links">
 			<a href="https://www.roblox.com/users/2901872175/profile" target="_blank">
@@ -72,22 +73,34 @@ import HeaderLink from './HeaderLink.astro';
 		max-width: 960px;
 		margin: 0 auto;
 	}
+	.internal-links {
+		position: relative;
+		display: flex;
+		align-items: center;
+	}
 	nav a {
 		padding: 1.25em 0.75em;
 		color: rgb(var(--gray));
-		border-bottom: 2px solid transparent;
 		text-decoration: none;
 		font-size: 0.95em;
 		font-weight: 500;
-		transition: color var(--transition), border-color var(--transition);
+		transition: color var(--transition);
 	}
 	nav a:hover {
 		color: rgb(var(--black));
 	}
 	nav a.active {
 		color: var(--accent);
-		border-bottom-color: var(--accent);
 		font-weight: 600;
+	}
+	.tab-indicator {
+		position: absolute;
+		bottom: 0;
+		height: 2px;
+		background: var(--accent);
+		border-radius: 1px;
+		transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+		pointer-events: none;
 	}
 	.social-links {
 		display: flex;
@@ -113,3 +126,29 @@ import HeaderLink from './HeaderLink.astro';
 		}
 	}
 </style>
+<script>
+	function positionIndicator(animate = true) {
+		const container = document.querySelector('.internal-links') as HTMLElement;
+		const active = container?.querySelector('a.active') as HTMLElement;
+		const indicator = container?.querySelector('.tab-indicator') as HTMLElement;
+		if (!container || !active || !indicator) return;
+
+		if (!animate) indicator.style.transition = 'none';
+
+		const containerRect = container.getBoundingClientRect();
+		const activeRect = active.getBoundingClientRect();
+		indicator.style.left = `${activeRect.left - containerRect.left}px`;
+		indicator.style.width = `${activeRect.width}px`;
+
+		if (!animate) {
+			indicator.offsetHeight; // force reflow
+			indicator.style.transition = '';
+		}
+	}
+
+	// Position immediately on first load (no animation)
+	positionIndicator(false);
+
+	// Animate on client-side navigation
+	document.addEventListener('astro:after-swap', () => positionIndicator(true));
+</script>
