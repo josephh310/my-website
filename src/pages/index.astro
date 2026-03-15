@@ -14,7 +14,7 @@ import HeadshotImage from '../assets/headshot.webp';
 		<style>
 			.hero {
 				display: flex;
-				align-items: center;
+				align-items: flex-start;
 				gap: 3em;
 			}
 			.hero-text {
@@ -35,22 +35,72 @@ import HeadshotImage from '../assets/headshot.webp';
 				flex-shrink: 0;
 			}
 			.hero-image img {
-				width: 220px;
-				height: 220px;
+				width: 180px;
+				height: 180px;
 				object-fit: cover;
 				border-radius: 50%;
-				box-shadow: var(--box-shadow);
+				outline: 2px solid rgba(255, 255, 255, 0.7);
+				outline-offset: -1px;
+			}
+			@keyframes fade-up {
+				from {
+					opacity: 0;
+					transform: translateY(20px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+			.stagger {
+				opacity: 0;
+				animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+			}
+			.stagger:nth-child(1) { animation-delay: 0.1s; }
+			.stagger:nth-child(2) { animation-delay: 0.25s; }
+			.stagger:nth-child(3) { animation-delay: 0.4s; }
+			.stagger:nth-child(4) { animation-delay: 0.55s; }
+			@keyframes fade-up-scale {
+				from {
+					opacity: 0;
+					transform: translateY(20px) scale(0.85);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0) scale(1);
+				}
+			}
+			.hero-image {
+				opacity: 0;
+				animation: fade-up-scale 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 			}
 			@media (max-width: 720px) {
 				.hero {
 					flex-direction: column-reverse;
+					align-items: center;
 					gap: 2em;
 					text-align: center;
 				}
 				.hero-image img {
-					width: 180px;
-					height: 180px;
+					width: 150px;
+					height: 150px;
 				}
+			}
+			.divider {
+				border-top: 1px solid rgb(var(--gray-light));
+			}
+			.portfolio {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 3em 1em;
+			}
+			.portfolio h2 {
+				margin-bottom: 0.5em;
+			}
+			.portfolio h3 {
+				color: rgb(var(--gray));
+				font-weight: 500;
 			}
 		</style>
 	</head>
@@ -59,15 +109,13 @@ import HeadshotImage from '../assets/headshot.webp';
 		<main>
 			<div class="hero">
 				<div class="hero-text">
-					<h1>Hey, I'm Joseph</h1>
-					<p class="subtitle">Developer on Roblox</p>
-					<p>
-						Welcome to my corner of the internet. I build interesting projects and games on Roblox.
-						This is where I share my work, thoughts, and things I've learned along the way.
+					<h1 class="stagger">Hey, I'm Joseph</h1>
+					<p class="subtitle stagger">Developer on Roblox</p>
+					<p class="stagger">
+						Welcome to my corner of the internet. I build interesting projects and games on Roblox. This is where I share my work, thoughts, and things I've learned along the way.
 					</p>
-					<p>
-						If you're interested in what I do, feel free to check out my <a href="/blog">blog</a> or take a look at
-						some of my <a href="/projects">projects</a>.
+					<p class="stagger">
+						If you're interested in what I do, feel free to check out my <a href="/blog">blog</a> or take a look at some of my <a href="/projects">projects</a>. If you're potentially interested in hiring me, check out my portfolio below!
 					</p>
 				</div>
 				<div class="hero-image">
@@ -75,6 +123,11 @@ import HeadshotImage from '../assets/headshot.webp';
 				</div>
 			</div>
 		</main>
+		<div class="divider"></div>
+		<section class="portfolio">
+			<h2>My Portfolio</h2>
+			<h3>Technical Skills</h3>
+		</section>
 		<Footer />
 	</body>
 </html>
