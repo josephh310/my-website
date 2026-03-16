@@ -170,6 +170,73 @@ import BrainySpinachLogo from '../assets/experience_thumbnails/brainy_spinach.pn
 			.skill-desc {
 				color: rgb(var(--gray));
 			}
+			.timeline {
+				margin-top: 1.5em;
+				position: relative;
+			}
+			.timeline-item {
+				display: flex;
+				gap: 1.25em;
+				position: relative;
+				padding-bottom: 2em;
+			}
+			.timeline-item:last-child {
+				padding-bottom: 0;
+			}
+			.timeline-marker {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				flex-shrink: 0;
+				width: 48px;
+			}
+			.timeline-logo {
+				width: 48px;
+				height: 48px;
+				border-radius: var(--radius);
+				background: rgb(var(--gray-light));
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.25em;
+				color: rgb(var(--gray));
+				flex-shrink: 0;
+				overflow: hidden;
+				z-index: 1;
+			}
+			.timeline-logo img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				border-radius: 0;
+			}
+			.timeline-line {
+				flex: 1;
+				width: 2px;
+				background: rgb(var(--gray-light));
+				margin-top: 0.5em;
+			}
+			.timeline-item:last-child .timeline-line {
+				display: none;
+			}
+			.timeline-content {
+				flex: 1;
+				padding-top: 0.15em;
+			}
+			.timeline-content h4 {
+				margin: 0;
+				font-size: 1.05em;
+			}
+			.timeline-date {
+				font-size: 0.85em;
+				color: rgb(var(--gray));
+				margin: 0.15em 0 0.5em;
+			}
+			.timeline-content p {
+				margin: 0;
+				font-size: 0.95em;
+				color: rgb(var(--gray-dark));
+			}
 		</style>
 	</head>
 	<body>
